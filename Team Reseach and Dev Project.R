@@ -16,8 +16,8 @@ head(rio_csv)
 plot(rio_csv$work_year)
 plot(rio_csv$work_year, rio_csv$salary_in_usd)
 hist(rio_csv$salary_in_usd)
-plot(rio_csv$job_title)
-hist(rio_csv$experience_level)
+plot(rio_csv$salary_in_usd)
+
 
 
 ggplot(rio_csv, aes(x = experience_level, y = salary_in_usd, fill = experience_level)) +
@@ -72,9 +72,28 @@ ggplot(entry_level, aes(x = salary_in_usd)) +
 
 ggplot(experienced_level, aes(x = salary_in_usd)) +
   geom_histogram(binwidth = 5000, fill = "skyblue", color = "black") +
-  labs(title = "Frequency of Salaries for Entry-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  labs(title = "Frequency of Salaries for Experinced-Level Employees", x = "Salary (USD)", y = "Frequency") +
   theme_minimal()
 ggplot(experienced_level, aes(x = salary_in_usd)) +
   geom_freqpoly(binwidth = 5000, color = "blue", size = 1.2) +
-  labs(title = "Frequency of Salaries for Entry-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  labs(title = "Frequency of Salaries for Experienced-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  theme_minimal()
+
+ggplot(mid_level, aes(x = salary_in_usd)) +
+  geom_histogram(binwidth = 5000, fill = "skyblue", color = "black") +
+  labs(title = "Frequency of Salaries for Mid-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  theme_minimal()
+ggplot(mid_level, aes(x = salary_in_usd)) +
+  geom_freqpoly(binwidth = 5000, color = "blue", size = 1.2) +
+  labs(title = "Frequency of Salaries for Mid-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  theme_minimal()
+
+
+ggplot(senior_level, aes(x = salary_in_usd)) +
+  geom_histogram(binwidth = 10000, fill = "blue", color = "black") +
+  labs(title = "Frequency of Salaries for Senior-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  theme_minimal()
+ggplot(senior_level, aes(x = salary_in_usd)) +
+  geom_freqpoly(binwidth = 5000, color = "Red", size = 1.2) +
+  labs(title = "Frequency of Salaries for Senior-Level Employees", x = "Salary (USD)", y = "Frequency") +
   theme_minimal()
