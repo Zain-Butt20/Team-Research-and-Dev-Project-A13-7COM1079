@@ -17,6 +17,7 @@ plot(rio_csv$work_year)
 plot(rio_csv$work_year, rio_csv$salary_in_usd)
 hist(rio_csv$salary_in_usd)
 plot(rio_csv$salary_in_usd)
+plot(rio_csv$experience_level)
 
 
 
@@ -72,28 +73,43 @@ ggplot(entry_level, aes(x = salary_in_usd)) +
 
 ggplot(experienced_level, aes(x = salary_in_usd)) +
   geom_histogram(binwidth = 5000, fill = "skyblue", color = "black") +
-  labs(title = "Frequency of Salaries for Experinced-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  labs(title = "Frequency of Salaries for Employees", x = "Salary (USD)", y = "Frequency") +
   theme_minimal()
-ggplot(experienced_level, aes(x = salary_in_usd)) +
-  geom_freqpoly(binwidth = 5000, color = "blue", size = 1.2) +
-  labs(title = "Frequency of Salaries for Experienced-Level Employees", x = "Salary (USD)", y = "Frequency") +
-  theme_minimal()
-
 ggplot(mid_level, aes(x = salary_in_usd)) +
   geom_histogram(binwidth = 5000, fill = "skyblue", color = "black") +
-  labs(title = "Frequency of Salaries for Mid-Level Employees", x = "Salary (USD)", y = "Frequency") +
-  theme_minimal()
-ggplot(mid_level, aes(x = salary_in_usd)) +
-  geom_freqpoly(binwidth = 5000, color = "blue", size = 1.2) +
-  labs(title = "Frequency of Salaries for Mid-Level Employees", x = "Salary (USD)", y = "Frequency") +
-  theme_minimal()
-
-
-ggplot(senior_level, aes(x = salary_in_usd)) +
-  geom_histogram(binwidth = 10000, fill = "blue", color = "black") +
-  labs(title = "Frequency of Salaries for Senior-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  labs(title = "Frequency of Salaries for Entry-Level Employees", x = "Salary (USD)", y = "Frequency") +
   theme_minimal()
 ggplot(senior_level, aes(x = salary_in_usd)) +
-  geom_freqpoly(binwidth = 5000, color = "Red", size = 1.2) +
-  labs(title = "Frequency of Salaries for Senior-Level Employees", x = "Salary (USD)", y = "Frequency") +
+  geom_histogram(binwidth = 5000, fill = "skyblue", color = "black") +
+  labs(title = "Frequency of Salaries for Entry-Level Employees", x = "Salary (USD)", y = "Frequency") +
   theme_minimal()
+
+df1 <- rio_csv
+names(df1)[1] <- "year"
+names(df1)[7] <- "salary"
+names(df1)[8] <- "location"
+names(df1)[9] <- "size"
+
+df_year <- subset(df1,year==2023)
+
+
+
+entry <- subset(df_year, experience_level == "EN")
+experienced <- subset(df_year, experience_level == "EX")
+mid <- subset(df_year, experience_level == "MI")
+senior <- subset(df_year, experience_level == "SE")
+
+ggplot(df_year, aes(x = experience_level, y = salary, fill = experience_level)) +
+  geom_boxplot() +
+  labs(title = "Salary Distribution by Experience Level", x = "Experience Level", y = "Salary (USD)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+df$entrylevel<-df$experience_level=="EN"
+df$experincedlevel<-df$experience_level=="EX"
+df$midlevel<-df$experience_level=="MI"
+df$seniorlevel<-df$experience_level=="SE"
+hist(df$salary)
+wilcox.test(df$salary ~ df$entrylevel)
+t.test(df$salary_in_usd ~ df$entrylevel)
+t.test(df$salary_in_usd ~ df$experincedlevel)
