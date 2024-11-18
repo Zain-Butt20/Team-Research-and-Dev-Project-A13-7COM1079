@@ -11,7 +11,8 @@ pacman::p_load(pacman, dplyr, GGally, ggplot2, ggthemes,
                ggvis, httr, lubridate, plotly, rio, rmarkdown, shiny, 
                stringr, tidyr)
 
-rio_csv <- import("C:/Users/Zain/Documents/Team Research and Dev Project/Data Science Salary 2021 to 2023.csv")
+rio_csv <- import("https://raw.githubusercontent.com/Zain-Butt20/Team-Research-and-Dev-Project-A13-7COM1079/refs/heads/main/Data%20Science%20Salary%202021%20to%202023.csv")
+
 head(rio_csv)
 plot(rio_csv$work_year)
 plot(rio_csv$work_year, rio_csv$salary_in_usd)
