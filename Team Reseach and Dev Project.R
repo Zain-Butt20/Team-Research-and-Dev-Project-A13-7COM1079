@@ -115,3 +115,20 @@ hist(df$salary)
 wilcox.test(df$salary ~ df$entrylevel)
 t.test(df$salary_in_usd ~ df$entrylevel)
 t.test(df$salary_in_usd ~ df$experincedlevel)
+
+#...............................................
+#checking normality
+ggplot(rio_csv, aes(x = salary_in_usd)) +
+  geom_histogram(bins = 30, color = "black", fill = "blue", alpha = 0.7) +
+  labs(title = "Histogram of Salary",
+       x = "Salary",
+       y = "Frequency") +
+  theme_minimal()
+
+#data not in bell shape so use pairwise wilcox test
+
+pairwise_test <- pairwise.wilcox.test(rio_csv$salary_in_usd, rio_csv$experience_level, 
+                                      paired = FALSE, p.adjust.method = "bonferroni")
+
+
+print(pairwise_test)
