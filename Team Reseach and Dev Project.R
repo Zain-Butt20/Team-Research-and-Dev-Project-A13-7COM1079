@@ -5,3 +5,14 @@
 
 
 
+#SAVE EACH CLASS OF EXPERIENCE LEVEL INDEPENDENTLY
+entry_level <- rio_csv$salary_in_usd [rio_csv$experience_level == "EN"]
+experienced_level <- rio_csv$salary_in_usd [rio_csv$experience_level == "EX"]
+mid_level <- rio_csv$salary_in_usd [rio_csv$experience_level == "MI"]
+senior_level <- rio_csv$salary_in_usd [rio_csv$experience_level == "SE"]
+
+#PLOT EACH LEVEL SEPERATELY AGAINST SALARY
+hist(entry_level,breaks=20, col = "red")
+hist(mid_level,breaks=20, col = "red")
+hist(senior_level,breaks=20, col = "red")
+hist(experienced_level,breaks=20, col = "red")
