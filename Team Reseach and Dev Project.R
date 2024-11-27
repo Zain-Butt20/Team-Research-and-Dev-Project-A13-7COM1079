@@ -32,8 +32,19 @@ hist(experienced_level,breaks=20, col = "red")
 
 options(scipen = 999)
 hist(rio_csv$salary_in_usd, breaks =20, col = "blue")
+#Histogram with the bell curve showing normality
+
 hist(rio_csv$salary_in_usd, breaks =20, col = "blue", prob = TRUE)
-lines(density(rio_csv$salary_in_usd))
+
+x2 <- seq(min(rio_csv$salary_in_usd), max(rio_csv$salary_in_usd), length = 40)
+fun <- dnorm(x2, mean = mean(rio_csv$salary_in_usd), sd = sd(rio_csv$salary_in_usd))
+hist(rio_csv$salary_in_usd, prob = TRUE,breaks = 20, col = "blue",
+     ylim = c(0, max(fun)),
+     main = "Histogram")
+lines(x2, fun, col = 2, lwd = 2)
+
+
+
 
 boxplot(rio_csv$salary_in_usd ~ rio_csv$experience_level, xlab= "Experience levels", ylab= "salary", main="Salaries vs Experience Levels")
 
