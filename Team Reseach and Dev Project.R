@@ -21,10 +21,10 @@ mid_level <- rio_csv$salary_in_usd [rio_csv$experience_level == "MI"]
 senior_level <- rio_csv$salary_in_usd [rio_csv$experience_level == "SE"]
 
 #PLOT EACH LEVEL SEPERATELY AGAINST SALARY
-hist(entry_level,breaks=20, col = "red")
-hist(mid_level,breaks=20, col = "red")
-hist(senior_level,breaks=20, col = "red")
-hist(experienced_level,breaks=20, col = "red")
+hist(entry_level,breaks=20, col = "red",main = "Entry level vs Salary")
+hist(mid_level,breaks=20, col = "red",main = "Mid level vs Salary")
+hist(senior_level,breaks=20, col = "red",main = "Senior level vs Salary")
+hist(experienced_level,breaks=20, col = "red",main = "Experienced level vs Salary")
 
 
 #...............................................
@@ -37,9 +37,9 @@ hist(rio_csv$salary_in_usd, breaks =20, col = "blue")
 hist(rio_csv$salary_in_usd, breaks =20, col = "blue", prob = TRUE)
 
 x2 <- seq(min(rio_csv$salary_in_usd), max(rio_csv$salary_in_usd), length = 40)
-fun <- dnorm(x2, mean = mean(rio_csv$salary_in_usd), sd = sd(rio_csv$salary_in_usd))
+x3 <- dnorm(x2, mean = mean(rio_csv$salary_in_usd), sd = sd(rio_csv$salary_in_usd))
 hist(rio_csv$salary_in_usd, prob = TRUE,breaks = 20, col = "blue",
-     ylim = c(0, max(fun)),
+     ylim = c(0, max(x3)),
      main = "Histogram")
 lines(x2, fun, col = 2, lwd = 2)
 
@@ -53,3 +53,9 @@ boxplot(rio_csv$salary_in_usd ~ rio_csv$experience_level, xlab= "Experience leve
 pairwise_t_result <- pairwise.t.test(rio_csv$salary_in_usd, rio_csv$experience_level, p.adjust.method = "bonferroni")
 
 print(pairwise_t_result)
+
+#We are not 100% sure it is normal data so we can use wilcox pairwise test as well
+
+pairwise_result <- pairwise.wilcox.test(rio_csv$salary_in_usd, rio_csv$experience_level,paired = FALSE, p.adjust.method = "bonferroni") 
+                                        
+print(pairwise_result)
