@@ -21,33 +21,33 @@ mid_level <- rio_csv$salary_in_usd [rio_csv$experience_level == "MI"]
 senior_level <- rio_csv$salary_in_usd [rio_csv$experience_level == "SE"]
 
 #PLOT EACH LEVEL SEPERATELY AGAINST SALARY
-hist(entry_level,breaks=20, col = "red",main = "Entry level vs Salary")
-hist(mid_level,breaks=20, col = "red",main = "Mid level vs Salary")
-hist(senior_level,breaks=20, col = "red",main = "Senior level vs Salary")
-hist(experienced_level,breaks=20, col = "red",main = "Experienced level vs Salary")
+hist(entry_level,breaks=20, col = "red",main = "Entry level's Salary")
+hist(mid_level,breaks=20, col = "red",main = "Mid level's Salary")
+hist(senior_level,breaks=20, col = "red",main = "Senior level's Salary")
+hist(experienced_level,breaks=20, col = "red",main = "Experienced level's Salary")
 
 
 #...............................................
 #checking normality
 
 options(scipen = 999)
-hist(rio_csv$salary_in_usd, breaks =20, col = "blue")
+h<- hist(rio_csv$salary_in_usd, breaks =20, col = "blue",main = "Experience Level's Salary",xlab = "Salaries in USD")
+
 #Histogram with the bell curve showing normality
 
-hist(rio_csv$salary_in_usd, breaks =20, col = "blue", prob = TRUE)
+y <- rio_csv$salary_in_usd
+x <- seq(0,400000,1)
+mn <-mean(y)
+sdev <- sd(y)
+yn <- dnorm(x, mean=mn, sd=sdev)
+box.size <- diff(h$mids[1:2]) * length(y)
+yn <- yn * box.size
 
-x2 <- seq(min(rio_csv$salary_in_usd), max(rio_csv$salary_in_usd), length = 40)
-x3 <- dnorm(x2, mean = mean(rio_csv$salary_in_usd), sd = sd(rio_csv$salary_in_usd))
-hist(rio_csv$salary_in_usd, prob = TRUE,breaks = 20, col = "blue",
-     ylim = c(0, max(x3)),
-     main = "Histogram")
-lines(x2, fun, col = 2, lwd = 2)
+lines(x, yn, col="red")
 
 
-
-
-boxplot(rio_csv$salary_in_usd ~ rio_csv$experience_level, xlab= "Experience levels", ylab= "salary", main="Salaries vs Experience Levels")
-
+boxplot(rio_csv$salary_in_usd ~ rio_csv$experience_level,col= topo.colors(4), xlab= "Experience levels", ylab= "salary", main="Salaries vs Experience Levels")
+legend(x="topleft", legend=c("EN: Entry","EX: Experienced","MI: Mid","SE: Senior"))
 #data is in bell shape so use pairwise student T test
 
 pairwise_t_result <- pairwise.t.test(rio_csv$salary_in_usd, rio_csv$experience_level, p.adjust.method = "bonferroni")
